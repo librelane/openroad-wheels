@@ -178,10 +178,14 @@ def build(git_repo):
         metadata_new = ""
         for line in metadata.splitlines():
             if line.strip() == "":
-                metadata_new += "License-Expression: GPL-3.0-or-later\n\n"
+                metadata_new += "License-Expression: GPL-3.0-or-later\n"
+                metadata_new += "Description-Content-Type: text/markdown\n\n"
                 metadata_new += (__repo_root__ / "Readme.md").read_text()
                 metadata_new += "\n"
                 break
+            if "Metadata-Version:" in line:
+                metadata_new += "Metadata-Version: 2.4\n"
+                continue
             metadata_new += line
             metadata_new += "\n"
         wf.writestr(wf.dist_info_path + "/METADATA", metadata_new)
