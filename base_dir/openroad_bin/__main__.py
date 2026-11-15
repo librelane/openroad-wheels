@@ -25,6 +25,7 @@ def openroad():
             f_out.write(f_in.read())
         os.chmod(extracted, 0o555)
 
+    os.sync()
     os.execlp(extracted, "openroad", *sys.argv[1:])
 
 

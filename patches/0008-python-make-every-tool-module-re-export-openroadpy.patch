@@ -17,7 +17,7 @@ replaces.
 Signed-off-by: Matt Liberty <mliberty@precisioninno.com>
 ---
  BUILD.bazel           |  2 +-
- python/modules/BUILD  |  6 +++---
+ python/modules/BUILD.bazel  |  6 +++---
  python/modules/ant.py |  1 -
  python/modules/cgt.py |  1 -
  python/modules/cts.py |  1 -
@@ -62,10 +62,10 @@ index 9ce1c64bd3..5bfce80551 100644
          "//src/utl:utl_py",
      ],
  )
-diff --git a/python/modules/BUILD b/python/modules/BUILD
+diff --git a/python/modules/BUILD.bazel b/python/modules/BUILD.bazel
 index 9215c5b5a5..caf36c46e0 100644
---- a/python/modules/BUILD
-+++ b/python/modules/BUILD
+--- a/python/modules/BUILD.bazel
++++ b/python/modules/BUILD.bazel
 @@ -7,9 +7,9 @@ package(features = ["layering_check"])
  
  # Top-level per-tool modules (import odb, import ant, ...), matching the

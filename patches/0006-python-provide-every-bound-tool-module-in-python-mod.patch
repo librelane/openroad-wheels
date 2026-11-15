@@ -11,7 +11,7 @@ have no Python extension in the Bazel build and are left out.
 
 Signed-off-by: Matt Liberty <mliberty@precisioninno.com>
 ---
- python/modules/BUILD          | 3 ++-
+ python/modules/BUILD.bazel    | 3 ++-
  python/modules/cgt.py         | 5 +++++
  python/modules/dpl.py         | 5 +++++
  python/modules/exa.py         | 5 +++++
@@ -34,10 +34,10 @@ Signed-off-by: Matt Liberty <mliberty@precisioninno.com>
  create mode 100644 python/modules/rsz.py
  create mode 100644 python/modules/wmk.py
 
-diff --git a/python/modules/BUILD b/python/modules/BUILD
+diff --git a/python/modules/BUILD.bazel b/python/modules/BUILD.bazel
 index 69e13aea2c..9215c5b5a5 100644
---- a/python/modules/BUILD
-+++ b/python/modules/BUILD
+--- a/python/modules/BUILD.bazel
++++ b/python/modules/BUILD.bazel
 @@ -6,7 +6,8 @@ load("@rules_python//python:defs.bzl", "py_library")
  package(features = ["layering_check"])
  

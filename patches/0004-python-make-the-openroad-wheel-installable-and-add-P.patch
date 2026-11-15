@@ -23,7 +23,7 @@ test/bazel_test.sh wrote at test time.
 Signed-off-by: Matt Liberty <mliberty@precisioninno.com>
 ---
  docs/agents/testing.md           | 29 ++++++++++++++++++
- python/modules/BUILD             | 17 +++++++++++
+ python/modules/BUILD.bazel       | 17 +++++++++++
  python/modules/ant.py            |  5 ++++
  python/modules/cts.py            |  5 ++++
  python/modules/drt.py            |  5 ++++
@@ -45,7 +45,7 @@ Signed-off-by: Matt Liberty <mliberty@precisioninno.com>
  src/utl/BUILD                    |  5 ++--
  test/bazel_test.sh               | 41 +++-----------------------
  22 files changed, 239 insertions(+), 43 deletions(-)
- create mode 100644 python/modules/BUILD
+ create mode 100644 python/modules/BUILD.bazel
  create mode 100644 python/modules/ant.py
  create mode 100644 python/modules/cts.py
  create mode 100644 python/modules/drt.py
@@ -99,11 +99,11 @@ index 3386d77847..b0d4d0fbf2 100644
 +3.10 or later) that installs into any virtualenv with `pip install`.
 +`//python/openroad:wheel_test` checks that it imports in a fresh interpreter
 +without the Bazel runfiles.
-diff --git a/python/modules/BUILD b/python/modules/BUILD
+diff --git a/python/modules/BUILD.bazel b/python/modules/BUILD.bazel
 new file mode 100644
 index 0000000000..69e13aea2c
 --- /dev/null
-+++ b/python/modules/BUILD
++++ b/python/modules/BUILD.bazel
 @@ -0,0 +1,17 @@
 +# SPDX-License-Identifier: BSD-3-Clause
 +# Copyright (c) 2026, The OpenROAD Authors

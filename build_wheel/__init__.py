@@ -148,7 +148,7 @@ def build(git_repo):
 
     # 3. Copy over wheel and binary for further processing
     base_wheel_path = next(
-        (git_repo / "bazel-bin" / "python" / "openroad").glob("*.whl")
+        (git_repo / "bazel-bin" / "python" / "openroad").glob(f"*{wheel_ver}*.whl")
     )
 
     dist_staging_dir = __repo_root__ / "dist_staging"

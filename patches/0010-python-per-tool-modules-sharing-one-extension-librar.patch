@@ -272,10 +272,10 @@ index 6706dc1d56..31931f1c1b 100644
  
  `-shared-libsan` is the mechanism for this case, but three things in
  hermetic-llvm block it today:
-diff --git a/python/modules/BUILD b/python/modules/BUILD
+diff --git a/python/modules/BUILD.bazel b/python/modules/BUILD.bazel
 index caf36c46e0..2fb0a736ac 100644
---- a/python/modules/BUILD
-+++ b/python/modules/BUILD
+--- a/python/modules/BUILD.bazel
++++ b/python/modules/BUILD.bazel
 @@ -7,9 +7,10 @@ package(features = ["layering_check"])
  
  # Top-level per-tool modules (import odb, import ant, ...), matching the
