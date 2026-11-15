@@ -9,9 +9,8 @@ venv:
 .PHONY: test
 test:
 	$(PYTHON) -m venv venv-test
-	./venv-test/bin/python3 -m pip install ./dist/*.whl
-	echo 'puts "ok' | ./venv-test/bin/openroad -exit -no_splash
-	./venv-test/bin/python3 -c "import odb; print('ok')"
+	./venv-test/bin/python3 -m pip install --upgrade ./dist/*.whl pytest
+	./venv-test/bin/python3 -m pytest test
 
 .PHONY: clean
 clean:

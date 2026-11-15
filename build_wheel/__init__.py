@@ -178,6 +178,7 @@ def build(git_repo):
         metadata_new = ""
         for line in metadata.splitlines():
             if line.strip() == "":
+                metadata_new += "Summary: Python bindings + binary for OpenROAD\n"
                 metadata_new += "License-Expression: GPL-3.0-or-later\n"
                 metadata_new += "Description-Content-Type: text/markdown\n\n"
                 metadata_new += (__repo_root__ / "Readme.md").read_text()
