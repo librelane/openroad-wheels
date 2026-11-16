@@ -1,3 +1,31 @@
+diff --git a/BUILD.bazel b/BUILD.bazel
+index 9ce1c64bd3..9e3354487d 100644
+--- a/BUILD.bazel
++++ b/BUILD.bazel
+@@ -234,6 +234,10 @@ cc_binary(
+             ],
+         },
+     ),
++    linkopts = select({
++        "@platforms//os:linux": ["-Wl,--allow-multiple-definition"],
++        "@platforms//os:macos": [],
++    })
+ )
+ 
+ # Qt GUI variant. Build explicitly when the interactive GUI is wanted:
+@@ -437,7 +437,10 @@ python_wrap_library(
+ 
+ cc_binary(
+     name = "_openroad.so",
+-    linkopts = PYTHON_EXTENSION_LINKOPTS,
++    linkopts = PYTHON_EXTENSION_LINKOPTS + select({
++        "@platforms//os:linux": ["-Wl,--allow-multiple-definition"],
++        "@platforms//os:macos": [],
++    }),
+     linkshared = True,
+     deps = [
+         ":ord_py_wrap",
+
 diff --git a/src/Main.cc b/src/Main.cc
 index 814a0dab39..bdd7d8c793 100644
 --- a/src/Main.cc
