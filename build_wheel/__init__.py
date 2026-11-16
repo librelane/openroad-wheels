@@ -100,7 +100,7 @@ def build(git_repo):
     for patch in sorted((__repo_root__ / "patches").glob("*.patch")):
         print(f"Applying {patch}...", file=sys.stderr)
         subprocess.check_call(
-            f"patch -N < {patch}",
+            f"patch -N -p1 < {patch}",
             shell=True,
             encoding="utf8",
             cwd=git_repo,
