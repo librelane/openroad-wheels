@@ -1,2 +1,3 @@
 [console_scripts]
 openroad = openroad_bin.__main__:openroad
+sta = openroad_bin.__main__:sta

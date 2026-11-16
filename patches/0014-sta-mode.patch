@@ -1,0 +1,63 @@
+diff --git a/src/Main.cc b/src/Main.cc
+index 814a0dab39..bdd7d8c793 100644
+--- a/src/Main.cc
++++ b/src/Main.cc
+@@ -107,8 +107,13 @@ static void handler(int sig)
+   raise(sig);
+ }
+ 
++extern int opensta_main(int argc, char* argv[]);
++
+ int main(int argc, char* argv[])
+ {
++  if (std::string("sta") == argv[0]) {
++    return opensta_main(argc, argv);
++  }
+   // Idle OpenMP workers sleep instead of spinning between parallel regions.
+   // A user-set OMP_WAIT_POLICY takes precedence.
+   setenv("OMP_WAIT_POLICY", "passive", 0);
+diff --git a/src/sta/app/Main.cc b/src/sta/app/Main.cc
+index 564ce629..8c219fa5 100644
+--- a/src/sta/app/Main.cc
++++ b/src/sta/app/Main.cc
+@@ -80,7 +80,7 @@ initStaApp(int &argc,
+            Tcl_Interp *interp);
+ 
+ int
+-main(int argc,
++opensta_main(int argc,
+      char *argv[])
+ {
+   if (argc == 2 && stringEq(argv[1], "-help")) {
+diff --git a/src/sta/BUILD.bazel b/src/sta/BUILD.bazel
+index 003b7e16..f98af5b3 100644
+--- a/src/sta/BUILD.bazel
++++ b/src/sta/BUILD.bazel
+@@ -300,8 +300,6 @@ cc_binary(
+     name = "opensta",
+     srcs = [
+         "app/Main.cc",
+-        ":StaApp",
+-        ":StaTclInitVar",
+     ],
+     copts = [
+         "-Wno-error",
+@@ -370,6 +368,9 @@ cc_library(
+         ],
+     ) + [
+         "app/StaMain.cc",
++        "app/Main.cc",
++        ":StaApp",
++        ":StaTclInitVar",
+     ] + select({
+         "@platforms//os:linux": ["util/MachineLinux.cc"],
+         "@platforms//os:osx": ["util/MachineApple.cc"],
+@@ -433,6 +434,8 @@ cc_library(
+         "@rules_flex//flex:current_flex_toolchain",
+         "@tcl_lang//:tcl",  # keep. Is used, but with <>-includes
+         "@zlib",  # keep. Is used, but with <>-includes
++        "//:tcl_readline_setup",
++        "//bazel:tcl_library_init",
+     ],
+ )
+

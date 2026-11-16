@@ -85,7 +85,7 @@ def build(git_repo):
 
     # 2. Reset state and apply patches
     subprocess.check_call(
-        ["git", "restore", "."],
+        ["git", "restore", "--recurse-submodules", "."],
         encoding="utf8",
         stderr=subprocess.PIPE,
         cwd=git_repo,
@@ -98,8 +98,10 @@ def build(git_repo):
     )
 
     for patch in sorted((__repo_root__ / "patches").glob("*.patch")):
+        print(f"Applying {patch}...")
         subprocess.check_call(
-            ["git", "apply", str(patch)],
+            f"patch -N < {patch}",
+            shell=True,
             encoding="utf8",
             cwd=git_repo,
         )

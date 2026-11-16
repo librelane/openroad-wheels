@@ -23,8 +23,7 @@ class Flock:
     def __exit__(self, exc_type, exc_value, traceback):
         fcntl.lockf(self.fd, fcntl.LOCK_UN)
 
-
-def openroad():
+def _ensure_extracted():
     extracted = __here__ / "openroad"
     with open(__here__ / ".extraction-lock", "w") as f, Flock(f.fileno()):
         if not extracted.is_file():
@@ -42,8 +41,13 @@ def openroad():
             with gzip.open(gzipped) as f_in, open(extracted, "wb") as f_out:
                 f_out.write(f_in.read())
             os.chmod(extracted, 0o555)
-    os.execlp(extracted, "openroad", *sys.argv[1:])
+    return extracted
 
+def openroad():
+    os.execlp(_ensure_extracted(), "openroad", *sys.argv[1:])
+
+def sta():
+    os.execlp(_ensure_extracted(), "sta", *sys.argv[1:])
 
 if __name__ == "__main__":
     openroad()

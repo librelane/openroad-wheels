@@ -3,6 +3,7 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
 
 def test_importable():
     for importable in ["openroad", "odb", "openroad_bin"]:
@@ -64,3 +65,23 @@ def test_bin_multi():
         assert current_test in multi_stdout, (
             f"did not find '{current_test}' in stdout for process {i}, found '{multi_stdout}'"
         )
+
+@pytest.mark.parametrize(
+    "mode,expected",
+    [
+        ("openroad", "1"),
+        ("sta", "0"),
+    ],
+)
+def test_modes(mode, expected):
+    p = subprocess.Popen(
+        [mode, "-exit", "-no_splash"],
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        encoding="utf8",
+    )
+    expr = "[namespace exists ::ord]"
+    p.stdin.write(f"puts {expr}")
+    p.stdin.close()
+    assert p.wait() == 0, f"failed to launch binary in {bin} mode"
+    assert p.stdout.read().strip() == expected, f"unexpected output: {expr} returned {expected} in {mode} mode"
