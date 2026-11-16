@@ -11,7 +11,7 @@ test:
 	$(PYTHON) -m venv venv-test
 	./venv-test/bin/python3 -m pip install --upgrade ./dist/*.whl pytest
 # tests needs sta, openroad in PATH so must source
-	source ./venv-test/bin/activate && pytest test
+	. ./venv-test/bin/activate && pytest test
 
 .PHONY: clean
 clean:
